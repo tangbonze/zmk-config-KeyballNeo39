@@ -1,4 +1,4 @@
-#include "skinner39.dtsi"
+#include "keyball_neo39.dtsi"
 #include <dt-bindings/led/led.h>
 
 &pinctrl {

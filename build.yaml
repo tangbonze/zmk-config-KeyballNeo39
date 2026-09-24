@@ -1,25 +1,25 @@
 include:
   # Peripheral (left) half: key matrix + nice!view, no sensor and no Studio.
-  - artifact: skinner39_left
-    board: skinner39_left
+  - artifact: keyball_neo39_left
+    board: keyball_neo39_left
     shield: nice_view
 
   # Central (right) half: talks to the host, runs the ZMK Studio / DYA Studio
   # RPC and carries the PMW3610 trackball.
-  - artifact: skinner39_right
-    board: skinner39_right
+  - artifact: keyball_neo39_right
+    board: keyball_neo39_right
     shield: nice_view
     snippets:
       - studio-rpc-usb-uart
 
   # Flash these to wipe stored settings (keymap edits, custom settings,
   # battery history, BLE profiles) and start over from firmware defaults.
-  - artifact: skinner39_left_reset
-    board: skinner39_left
+  - artifact: keyball_neo39_left_reset
+    board: keyball_neo39_left
     shield: nice_view
     cmake-args: -DCONFIG_ZMK_SETTINGS_RESET_ON_START=y
 
-  - artifact: skinner39_right_reset
-    board: skinner39_right
+  - artifact: keyball_neo39_right_reset
+    board: keyball_neo39_right
     shield: nice_view
     cmake-args: -DCONFIG_ZMK_SETTINGS_RESET_ON_START=y

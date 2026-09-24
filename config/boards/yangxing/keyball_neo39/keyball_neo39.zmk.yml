@@ -1,5 +1,5 @@
 file_format: "1"
-id: skinner39
+id: keyball_neo39
 name: Keyball Neo
 type: board
 arch: arm
@@ -8,5 +8,5 @@ outputs:
   - ble
 url: https://github.com/tangbonze/zmk-config-Skinner39
 siblings:
-  - skinner39_left
-  - skinner39_right
+  - keyball_neo39_left
+  - keyball_neo39_right

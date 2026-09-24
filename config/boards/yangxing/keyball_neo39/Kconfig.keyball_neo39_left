@@ -1,7 +1,7 @@
 # Copyright (c) 2020 The ZMK Contributors
 # SPDX-License-Identifier: MIT
 
-config BOARD_SKINNER39_LEFT
+config BOARD_KEYBALL_NEO39_LEFT
     select SOC_NRF52840_QIAA
     select ZMK_BOARD_COMPAT
     imply RETAINED_MEM

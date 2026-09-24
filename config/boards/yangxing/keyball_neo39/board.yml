@@ -1,9 +1,9 @@
 boards:
-  - name: skinner39_left
+  - name: keyball_neo39_left
     vendor: yangxing
     socs:
       - name: nrf52840
-  - name: skinner39_right
+  - name: keyball_neo39_right
     vendor: yangxing
     socs:
       - name: nrf52840
