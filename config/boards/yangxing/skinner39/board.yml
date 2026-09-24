@@ -1,0 +1,9 @@
+boards:
+  - name: skinner39_left
+    vendor: yangxing
+    socs:
+      - name: nrf52840
+  - name: skinner39_right
+    vendor: yangxing
+    socs:
+      - name: nrf52840

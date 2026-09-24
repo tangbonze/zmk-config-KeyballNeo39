@@ -1,7 +1,9 @@
 #include <behaviors.dtsi>
+#include <behaviors/runtime_macro.dtsi>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/pointing.h>
+#include <dt-bindings/input/input-event-codes.h>
 
 / {
     keymap {
@@ -48,7 +50,7 @@
   &kp N1          &kp N2          &kp N3        &kp N4     &kp N5                  &kp N6         &kp N7     &kp N8  &kp N9     &kp N0
   &kp LEFT_ARROW  &kp DOWN_ARROW  &kp UP_ARROW  &kp RIGHT  &trans                  &kp PAGE_UP    &mkp LCLK  &trans  &mkp RCLK  &mkp MCLK
   &trans          &trans          &trans        &trans     &trans                  &kp PAGE_DOWN  &trans     &trans  &trans     &trans
-  &trans          &trans          &trans        &trans     &trans  &trans  &trans  &trans                                       &trans
+  &studio_unlock  &rmacro 0       &trans        &trans     &trans  &trans  &trans  &trans                                       &trans
             >;
         };
 
@@ -79,4 +81,32 @@
             >;
         };
     };
+};
+
+// ---------------------------------------------------------------------------
+// Trackball runtime input processors (DYA Studio "Trackball" tab)
+//
+// The defaults live in <input/processors/runtime-input-processor.dtsi>; only
+// the behaviour that is specific to this keymap is set here. Everything else
+// (speed, rotation, axis snap, ...) can be changed from DYA Studio and is
+// stored in the keyboard's settings.
+// ---------------------------------------------------------------------------
+
+&mouse_runtime_input_processor {
+    // Auto mouse layer: while the ball is moving the MOUSE layer (4) is held
+    // active, so the ball also clicks/scrolls like a mouse without reaching
+    // for a layer key first.
+    temp-layer-enabled;
+    temp-layer = <4>;
+    temp-layer-activation-delay-ms = <200>;
+    temp-layer-deactivation-delay-ms = <400>;
+};
+
+&scroll_runtime_input_processor {
+    // Only on the SCROLL layer (5) movement is turned into wheel scrolling.
+    active-layers = <BIT(5)>;
+    x-codes = <INPUT_REL_X>;
+    y-codes = <INPUT_REL_Y>;
+    xy-to-scroll-enabled;
+    axis-snap-threshold = <100>;
 };

@@ -1,0 +1,8 @@
+# Manifest to set up dependencies under <west topdir>/dependencies
+# Usage: west init -l config --mf west-standalone.yml
+manifest:
+  self:
+    path: config
+    import:
+      file: west-dependency.yml
+      path-prefix: dependencies

@@ -1,27 +1,10 @@
+# Manifest to set up dependencies under <west topdir>/dependencies
+# (west init -l config --mf west-standalone.yml) or under <west topdir>
+# (west init -l . --mf config/west.yml).
+#
+# The real dependency list lives in west-dependency.yml, shared by both
+# layouts so they can never drift apart.
 manifest:
-  remotes:
-    - name: zmk
-      url-base: https://github.com/zmkfirmware
-    - name: badjeff
-      url-base: https://github.com/badjeff
-    - name: yangxing
-      url-base: https://github.com/yangxing844
-  projects:
-    - name: zmk
-      remote: zmk
-      revision: main
-      import: app/west.yml
-    - name: zmk-pmw3610-driver
-      remote: badjeff
-      revision: main
-    - name: zmk-split-peripheral-input-relay
-      remote: badjeff
-      revision: main
-    - name: zmk-input-behavior-listener
-      remote: badjeff
-      revision: main
-    - name: zmk-lpm009m360a-driver
-      remote: yangxing
-      revision: master
   self:
     path: config
+    import: west-dependency.yml

@@ -1,0 +1,79 @@
+# DYA branch dependencies.
+#
+# Uses the same PMW3610 driver family as the keyball dya-nv branch
+# (cormoran's PMW3610 driver, devicetree compatible "cormoran,pmw3610"),
+# together with the ZMK fork and the modules that DYA Studio talks to over
+# its custom Studio RPC protocol.
+#
+# Reference: https://dya-studio-dev.cormoran707.workers.dev/developer-guide
+manifest:
+  version: 1.2
+  defaults:
+    remote: cormoran
+    revision: main
+  remotes:
+    - name: cormoran
+      url-base: https://github.com/cormoran
+  projects:
+    - name: zmk-west-commands
+      import: true
+    - name: zmk
+      import:
+        file: app/west.yml
+      clone-depth: 1
+      revision: main+dya
+    - name: zephyr
+      revision: v4.1.0+zmk-fixes+nrf-half-duplex-uart
+      clone-depth: 1
+      import:
+        name-blocklist:
+          - ci-tools
+          - hal_altera
+          - hal_cypress
+          - hal_infineon
+          - hal_microchip
+          - hal_nxp
+          - hal_openisa
+          - hal_xtensa
+          - hal_st
+          - hal_ti
+          - loramac-node
+          - mcuboot
+          - mcumgr
+          - net-tools
+          - openthread
+          - edtt
+          - trusted-firmware-m
+    # Trackball sensor driver: sensor info/diagnostics, runtime settings
+    # (cpi, axis, downshift, ...) and frame capture over Studio RPC.
+    - name: zmk-driver-pmw3610-with-custom-studio-rpc
+    # Trackball tab: runtime input processors (pointer/scroll speed, rotation,
+    # axis snap, auto mouse layer).
+    - name: zmk-module-runtime-input-processor
+    # Connection tab: BLE profile management.
+    - name: zmk-module-ble-management
+    # Settings tab: sleep/idle timeouts and other exposed values.
+    - name: zmk-module-settings-rpc
+    # Battery level history shown in DYA Studio.
+    - name: zmk-module-battery-history
+    # Typed, persistent settings backend shared by the modules above.
+    - name: zmk-feature-custom-settings
+    # Connection tab: OS detection + USB/profile dependent default layers.
+    - name: zmk-feature-os-detection
+    - name: zmk-feature-default-layer
+      revision: codex/custom-rpc-rewrite
+      import: true
+    # Diagnostics tab: trackball node in the layout preview, device info and
+    # watchdog state.
+    - name: zmk-feature-module-physical-layout
+    - name: zmk-feature-device-info
+    - name: zmk-feature-watchdog
+    # Keymap tab - create/rename/delete macros from the web UI; a macro is
+    # played by binding &rmacro <slot> in the keymap.
+    - name: zmk-feature-runtime-macro
+      import: true
+    # Keymap tab - combos (simultaneous key presses) edited from the web UI.
+    - name: zmk-feature-runtime-combo
+      import: true
+  self:
+    path: config

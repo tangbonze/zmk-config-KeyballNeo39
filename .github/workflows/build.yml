@@ -1,11 +1,55 @@
 name: Build ZMK firmware
+
 on:
-  workflow_dispatch:
   push:
     paths:
       - config/**
       - build.yaml
+  pull_request:
+  workflow_dispatch:
 
 jobs:
   build:
-    uses: zmkfirmware/zmk/.github/workflows/build-user-config.yml@main
+    runs-on: ubuntu-latest
+    container:
+      image: zmkfirmware/zmk-build-arm:stable
+    name: Build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Cache west modules
+        uses: actions/cache@v4
+        continue-on-error: true
+        env:
+          cache_name: cache-west-modules
+        with:
+          path: dependencies/
+          key: ${{ runner.os }}-build-${{ env.cache_name }}-${{ hashFiles('config/west*.yml') }}
+          restore-keys: |
+            ${{ runner.os }}-build-${{ env.cache_name }}-
+
+      - name: Init
+        run: |
+          git config --global --add safe.directory ${{ github.workspace }}
+          make init-standalone
+
+      - name: Build
+        run: make build-all
+
+      - name: Copy artifacts
+        shell: sh -x {0}
+        run: |
+          mkdir -p artifacts
+          find ./build -type f -path '*/zephyr/zmk.uf2' \
+          | while read -r f; do
+              echo "Found: $f"
+              name=$(basename "$(dirname "$(dirname "$f")")")
+              mv "$f" "artifacts/${name}.uf2"
+            done
+
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: skinner39-dya
+          path: artifacts

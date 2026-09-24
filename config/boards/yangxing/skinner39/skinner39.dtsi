@@ -6,6 +6,7 @@
 
 /dts-v1/;
 #include <nordic/nrf52840_qiaa.dtsi>
+#include <common/nordic/nrf52840_uf2_boot_mode.dtsi>
 #include <dt-bindings/zmk/matrix_transform.h>
 #include <physical_layouts.dtsi>
 
@@ -148,19 +149,48 @@ zephyr_udc0:&usbd {
 };
 
 / {
-    split_inputs {
-        #address-cells = <1>;
-        #size-cells = <0>;
+    // Trackball input listener. The sensor sits on the right half and the
+    // right half is the central, so the ball is consumed locally, with no
+    // split relay involved; skinner39_right.dts attaches and enables it.
+    trackball_listener: trackball_listener {
+        compatible = "zmk,input-listener";
+        status = "disabled";
 
-        pmw_split: pmw_split@0 {
-            compatible = "zmk,input-split";
-            reg = <0>;
+        // The runtime input processors DYA Studio configures
+        // (speed, rotation, axis snap, ...).
+        input-processors = <&mouse_runtime_input_processor &scroll_runtime_input_processor>;
+
+        // when the scroll layer is active, the trackball acts as a mouse wheel
+        scroller {
+            layers = <5>;
+            input-processors = <&scroll_runtime_input_processor>;
+        };
+
+        // when the snipe layer is active, the trackball moves more slowly
+        snipe {
+            layers = <6>;
+            input-processors = <&zip_xy_scaler 1 3 &mouse_runtime_input_processor>;
         };
     };
 
-    pmw_listener: pmw_listener {
-        compatible = "zmk,input-listener";
-        status = "disabled";
-        device = <&pmw_split>;
+    // Trackball marker for the DYA Studio layout preview
+    // (zmk-feature-module-physical-layout). Coordinates and size use the same
+    // 0.01 unit scale as the key physical attributes above: the ball sits in
+    // the gap between the two halves. Adjust if it looks off.
+    trackball_layout: trackball_layout {
+        compatible = "cormoran,physical-layout-trackball";
+        display-name = "Trackball";
+        size = <140>;
+        x = <700>;
+        y = <250>;
+
+        linked-device-identifiers = "mouse", "scroll";
+        linked-subsystems = "cormoran_rip", "cormoran_rip";
     };
 };
+
+// Must come after the matrix transform above: the runtime input processor
+// definitions pull in dt-bindings/zmk/keys.h, which redefines RC(keycode) for
+// modifiers and would otherwise clash with the RC(row, col) matrix macros.
+#include <input/processors.dtsi>
+#include <input/processors/runtime-input-processor.dtsi>
