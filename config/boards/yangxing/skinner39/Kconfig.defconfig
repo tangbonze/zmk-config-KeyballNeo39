@@ -6,7 +6,7 @@
 if BOARD_SKINNER39_RIGHT
 
 config ZMK_KEYBOARD_NAME
-		default "SKINNER39"
+		default "Keyball Neo"
 
 config ZMK_SPLIT_ROLE_CENTRAL
 		default y

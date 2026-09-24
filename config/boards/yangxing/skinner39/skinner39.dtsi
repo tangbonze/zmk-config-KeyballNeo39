@@ -11,7 +11,7 @@
 #include <physical_layouts.dtsi>
 
 / {
-    model = "skinner39";
+    model = "Keyball Neo";
     compatible = "yangxing,skinner39";
 
     chosen {
@@ -37,7 +37,7 @@
 
  matrix_physical_layout: matrix_physical_layout {
  	 compatible = "zmk,physical-layout";
- 	 display-name = "skinner39";
+ 	 display-name = "Keyball Neo";
  	
 	 transform = <&default_transform>;
 	 	keys  //                     w   h    x    y     rot    rx    ry
