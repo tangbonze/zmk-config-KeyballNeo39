@@ -6,7 +6,7 @@
 if BOARD_KEYBALL_NEO39_RIGHT
 
 config ZMK_KEYBOARD_NAME
-		default "Keyball Neo"
+		default "Keyball Neo 39"
 
 config ZMK_SPLIT_ROLE_CENTRAL
 		default y

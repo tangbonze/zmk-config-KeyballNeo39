@@ -8,9 +8,10 @@
 
 ### 关于这块键盘
 
-**Keyball Neo**（原名 Skinner39）是一块 39 键的无线分体键盘：OLED（nice!view）屏幕、
+**Keyball Neo 39**（原名 Skinner39）是一块 39 键的无线分体键盘：OLED（nice!view）屏幕、
 可换 25mm / 34mm 轨迹球、支持低 / 高轴，外壳带磁吸倾斜结构。设计由 yangxing 完成，
-灵感来自 Yawkee 的 keyball 系列；47 键的大尺寸版本见 `zmk-config-KeyballNeo47`。
+灵感来自 Yawkee 的 keyball 系列；47 键的大尺寸版本叫 **Keyball Neo 47**，
+见 `zmk-config-KeyballNeo47`。
 组装指南：<https://aeolian-melon-437.notion.site/Skinner39-1a14484f44ee80c3916ad98ebab79145>
 
 `dya` 分支把这块键盘接到 **DYA Studio**（cormoran 的 ZMK Studio 增强版）上，
@@ -19,7 +20,7 @@
 
 `main` 分支保持原样，改动都在 `dya` 分支上（它也是现在的默认分支）。
 
-键盘对外显示的名字是 **Keyball Neo**：蓝牙 / USB 设备名、ZMK Studio 里的键盘名和
+键盘对外显示的名字是 **Keyball Neo 39**：蓝牙 / USB 设备名、ZMK Studio 里的键盘名和
 布局名都用它（来自 `ZMK_KEYBOARD_NAME`、`display-name`、`*.zmk.yml`）。板 ID、目录、
 keymap 和固件文件名也用同一个名字：板 ID 是 `keyball_neo39_left` /
 `keyball_neo39_right`，keymap 是 `config/keyball_neo39.keymap`，固件是
@@ -118,10 +119,11 @@ make build-all         # 输出到 ./build/<artifact>/zephyr/zmk.uf2
 
 ### About this keyboard
 
-**Keyball Neo** (formerly Skinner39) is a 39-key wireless split keyboard with a nice!view
+**Keyball Neo 39** (formerly Skinner39) is a 39-key wireless split keyboard with a nice!view
 OLED, a swappable 25 mm / 34 mm trackball and support for both low- and high-profile
 switches, in a case with magnetic tenting. It was designed by yangxing, inspired by
-Yawkee's keyball family; the larger 47-key version lives in `zmk-config-KeyballNeo47`.
+Yawkee's keyball family; the larger 47-key sibling is **Keyball Neo 47**, in
+`zmk-config-KeyballNeo47`.
 Build guide: <https://aeolian-melon-437.notion.site/Skinner39-1a14484f44ee80c3916ad98ebab79145>
 
 The `dya` branch makes it work with **DYA Studio** (cormoran's enhanced ZMK Studio). It
@@ -130,7 +132,7 @@ uses the same trackball stack as the keyball `dya-nv` branch: cormoran's PMW3610
 
 `main` is left untouched; all changes live on `dya`, which is also the default branch.
 
-The name shown to the outside world is **Keyball Neo**: the Bluetooth / USB device name
+The name shown to the outside world is **Keyball Neo 39**: the Bluetooth / USB device name
 and the keyboard and layout names in ZMK Studio (`ZMK_KEYBOARD_NAME`, `display-name`,
 `*.zmk.yml`). Board IDs, directories, the keymap and the firmware file names all follow
 the same scheme: `keyball_neo39_left` / `keyball_neo39_right`,
